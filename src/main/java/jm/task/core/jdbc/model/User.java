@@ -1,15 +1,14 @@
 package jm.task.core.jdbc.model;
 
-import jm.task.core.jdbc.util.Util;
+import javax.persistence.*;
+import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.List;
-
-@Table
+@Entity
+@Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column
@@ -71,5 +70,31 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else if (obj == this) {
+            return true;
+        } else if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        User that = (User) obj;
+
+        return Long.compare(that.id,id) == 0 && that.name.equals(name) &&
+                that.lastName.equals(lastName) && Objects.equals(that.age, age);
+    }
+
+    @Override
+    public int hashCode() {
+        int res = 17;
+        res = res * 31 + id.intValue() >> 5;
+        res = res * 31 + name.hashCode() >> 5;
+        res = res * 31 + lastName.hashCode() >> 5;
+        res = res * 31 + age >> 5;
+        return res;
     }
 }
