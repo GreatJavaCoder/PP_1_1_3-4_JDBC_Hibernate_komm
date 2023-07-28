@@ -1,19 +1,19 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // реализуйте алгоритм здесь
         Class.forName("com.mysql.cj.jdbc.Driver");
-        UserDaoJDBCImpl udji = new UserDaoJDBCImpl();
-        udji.createUsersTable();
-        udji.saveUser("ABC", "DEF", (byte)(1));
-        udji.saveUser("GHI", "JKL", (byte)(2));
-        udji.saveUser("MNO", "PQR", (byte)(3));
-        udji.saveUser("STU", "VWX", (byte)(4));
-        udji.cleanUsersTable();
-        udji.dropUsersTable();
+        UserDaoHibernateImpl udhi = new UserDaoHibernateImpl();
+        udhi.createUsersTable();
+        udhi.saveUser("HRE", "IOS", (byte)(3));
+        udhi.saveUser("INI", "EFH", (byte)(1));
+        udhi.saveUser("BAS", "CFI", (byte)(4));
+        udhi.saveUser("ETP", "ENT", (byte)(1));
+        udhi.cleanUsersTable();
+        udhi.dropUsersTable();
     }
 }
