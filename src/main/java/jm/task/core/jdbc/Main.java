@@ -1,10 +1,9 @@
 package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
-import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException {
         // реализуйте алгоритм здесь
         Class.forName("com.mysql.cj.jdbc.Driver");
         UserDaoHibernateImpl udhi = new UserDaoHibernateImpl();

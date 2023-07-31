@@ -10,17 +10,17 @@ public class UserServiceImpl implements UserService {
     private UserDaoHibernateImpl udhi = new UserDaoHibernateImpl();
 
     @Override
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
         udhi.createUsersTable();
     }
 
     @Override
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
         udhi.dropUsersTable();
     }
 
     @Override
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
         udhi.saveUser(name, lastName, age);
     }
 

@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -12,7 +13,6 @@ public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
 
     }
-
 
     @Override
     public void createUsersTable() {
@@ -25,10 +25,13 @@ public class UserDaoHibernateImpl implements UserDao {
                 "age TINYINT NOT NULL); ";
 
         Query query = session.createNativeQuery(sql, User.class);
-        query.executeUpdate();
+        try {
+            query.executeUpdate();
+        } catch (JDBCException e) {
+            e.printStackTrace();
+        }
         transaction.commit();
         session.close();
-
     }
 
     @Override
@@ -39,10 +42,14 @@ public class UserDaoHibernateImpl implements UserDao {
         String sql = " DROP TABLE IF EXISTS users; ";
 
         Query query = session.createNativeQuery(sql, User.class);
+        try {
+            query.executeUpdate();
+        } catch (JDBCException e) {
+            e.printStackTrace();
+        }
         query.executeUpdate();
         transaction.commit();
         session.close();
-
     }
 
     @Override
@@ -73,6 +80,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = Util.getSessionFactory().openSession();
         Query query = session.createQuery(hql);
         List<User> userList = query.list();
+        session.close();
         return userList;
     }
 
@@ -84,7 +92,11 @@ public class UserDaoHibernateImpl implements UserDao {
         String sql = " DELETE from users WHERE id > 0; ";
 
         Query query = session.createNativeQuery(sql, User.class);
-        query.executeUpdate();
+        try {
+            query.executeUpdate();
+        } catch (JDBCException e) {
+            e.printStackTrace();
+        }
         transaction.commit();
         session.close();
     }
